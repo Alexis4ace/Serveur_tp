@@ -11,6 +11,11 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'accueil_index')]
     public function indexAction(): Response
     {
-        return $this->render('Sandbox/Overview/hello2.html.twig');
+        return $this->render('Accueil/index.html.twig');
+    }
+
+    public function menuAction(): Response{
+        $args = array();
+        return $this->render('Layouts/menu.html.twig',$args);
     }
 }

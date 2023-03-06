@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Bienvenue !</title>
+        <style>
+            caption { border: red solid 1px; }
+            table { border: black solid 1px; }
+            th ,td { border: black solid 1px; }
+        </style>
+
+    </head>
+    <body>
+        <h1>Bienvenue </h1>
+       
+        <h1> Route::{{ title }} </h1>
+        <table>   
+            <tr><th> year </th> <td>{{year }}</td></tr>
+            <tr><th> month </th> <td>{{month }}</td></tr>
+            <tr><th> filename </th> <td>{{filename }}</td></tr>
+            <tr><th> ext </th> <td>{{ext }}</td></tr>
+        </table>
+        {{dump(year,month,filename,ext)}}
+    </body>
+</html>
+
+
+
+
+
+

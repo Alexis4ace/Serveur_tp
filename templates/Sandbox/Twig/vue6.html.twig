@@ -1,0 +1,101 @@
+{% extends 'Sandbox/Layouts/layout3.html.twig' %}
+
+{% block title %}{{ parent() }} : vue 5{% endblock %}
+
+{% block titre_principal %}Titre principal de la vue 5{% endblock %}
+
+
+{%block vue %}
+    <h2> qui suis je ? </h2>
+    <p>
+        je suis {{prenom}} et je suis joignable a <em> {{mail}} </em>
+    </p>
+    <h2> Dump du tableau des forma </h2>
+    <p> Tips : ctrl clic sur fleche </p>
+    {{dump(offre)}}
+    <p>
+       lorsqu’on manipule des structures complexes, il peut etre utile d’avoir
+        un <code>dump</code> sous les yeux pour visualiser l’organisation des donnees.
+    </p>
+
+    <h2> Noms des mentions </h2>
+    <ul>
+        {%for nomCourt , mention in offre.mentions %}
+            <li>{{ mention.nom|upper}} ({{ nomCourt}}) </li>
+        {%endfor%}
+    </ul>
+
+    <h2>Noms et volumes des UEs</h2>
+    <ul>
+        {% for ue in offre.ues %}
+            <li>{{ loop.index }}. {{ ue.nom ~ ' : ' ~ ue.volume }}</li>              {# manière avec concaténation #}
+        {% endfor %}
+    </ul>
+
+    <h2>Tableau complet</h2>
+    <ul>
+        {#  partie 1 : les mentions #}
+        <li>Mentions
+            <ul>
+                {% for nomCourt, mention in offre.mentions %}
+                    {# traitement d'une mention #}
+                    <li>{{ nomCourt }}
+                        <ul>
+                            <li>nom : {{ mention.nom }}</li>
+                            <li>parcours :
+                                <ul>
+                                    {% for parcour in mention.parcours %}
+                                        <li>parcours {{ loop.index }} : {{ parcour }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            <li>responsable : {{ mention.responsable }}</li>
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        {#  partie 2 : les UEs #}
+        <li>UEs
+            <ul>
+                {% for ue in offre.ues %}
+                    {# traitement d'une UE #}
+                    <li>UE {{ loop.index0 }}
+                        <ul>
+                            <li>nom : {{ ue.nom }}</li>
+                            <li>volume : {{ ue.volume }} heure(s)</li>
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Nombre de mentions</h2>
+    <p>Il y a {{offre.mentions|length}} mention{{ offre.mentions|length > 1 ? 's' : ''}}</p>
+
+    <h2>Filtre <code>format</code></h2>
+    {% set ville = 'Poitiers' %}
+    <p>{{ 'Il y a %d habitants à %s en 1990' | format(78894, ville) }}</p>
+
+    <h2>UEs dont le volume horaire est &ge; 30</h2>
+    <ul>
+        {% for ue in offre.ues %}
+            {% if ue.volume >= 30 %}
+                <li>{{ ue.nom }} ({{ ue.volume }} heure(s))</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+
+    <h2>Variable globale <code>app</code></h2>
+    <p>
+        <code>app.session</code> : {{ dump(app.session) }}
+        <code>app.request</code> : {{ dump(app.request) }}
+        <code>app.environment</code> : {{ dump(app.environment) }}
+        <code>app.debug</code> : {{ dump(app.debug) }}
+        <code>app.user</code> : {{ dump(app.user) }}
+    </p>
+
+
+{% endblock %}
